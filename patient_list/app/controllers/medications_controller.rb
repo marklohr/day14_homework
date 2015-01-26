@@ -12,7 +12,7 @@ class MedicationsController < ApplicationController
 
   def new
     @doctor = Doctor.find params[:doctor_id]
-    @patient = @doctor.patient.find params[:patient_id]
+    @patient = Patient.find params[:patient_id]
     @medication = @patient.medications.new
   end
 
@@ -43,6 +43,7 @@ class MedicationsController < ApplicationController
     @patient = Patient.find params[:patient_id]
     @medication.delete
     redirect_to doctor_patient_path(@doctor, @patient)
+  end
 
 
 private
