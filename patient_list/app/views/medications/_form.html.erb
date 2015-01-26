@@ -1,0 +1,17 @@
+<%= form_for [@doctor, @patient, @medication] do |f| %>
+  
+  <%= f.label :name %>
+  <%= f.text_field :name %>
+  <br>
+  
+  <%= f.label :side_effects %>
+  <%= f.text_area :side_effects %>
+  <br>
+  
+  <%= f.submit %>
+<% end %>
+<br>
+
+<%= link_to "Cancel", doctor_patient_path(@doctor, @patient) %>
+|
+<%= link_to "Return to Main", root_path %>

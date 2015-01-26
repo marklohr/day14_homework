@@ -1,0 +1,47 @@
+<h1>Information for:</h1>
+<br>
+
+    <%= link_to patient.last_name + ", " + patient.first_name, patient_path(patient) %>
+    <br>
+    <strong>DOB:</strong>
+    <%= patient.date_of_birth %>
+    <br>
+    <strong>Description:</strong>
+    <%= patient.description %>
+    <br>
+    <strong>Gender:</strong>
+    <%= patient.gender %>
+    <br>
+    <strong>Blood Type:</strong>
+    <%= patient.blood_type %>
+    <br><br>
+
+<%= link_to "Edit Patient", edit_doctor_patient_path(@doctor, @patient) %>
+|
+<%= link_to "Delete Patient", doctor_patient_path(@doctor, @patient), method: :delete %>
+<br>
+<%= link_to "Return to Doctor", doctor_path(@doctor) %>
+|
+<%= link_to "Return to Main", root_path %>
+<br>
+<br>
+<strong>Patient Medications:</strong>
+<%= link_to "Add Medication", new_doctor_patient_medication_path(@doctor, @patient) %>
+<br>
+<ul>
+  <% @patient.medications.each do |medication| %>
+    <li>
+      <strong>Medication Name:</strong>
+      <%= link_to medication.name, doctor_patient_medication_path(@doctor, @patient, medication) %>
+      <br>
+      <strong>Side Effects:</strong>
+      <%= medication.side_effects %>
+      <br>
+      
+     <%= link_to "Edit Medication", edit_doctor_patient_medication_path(@doctor, @patient, medication) %>
+     |
+    <%= link_to "Delete Medication", doctor_patient_medication_path(@doctor, @patient, medication), method: :delete %>
+    <br>
+    <br>
+    </li>
+  <% end %>
