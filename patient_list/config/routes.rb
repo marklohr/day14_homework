@@ -2,10 +2,19 @@ Rails.application.routes.draw do
     root 'home#index'
 
     resources :doctors do
+        member do
+          post :create_nurse
+          delete :destroy_nurse
+        end
       resources :patients do
+        member do
+          post :create_nurse
+          delete :destroy_nurse
+        end
         resources :medications
-      end
     end
+  end
+
 
     
 

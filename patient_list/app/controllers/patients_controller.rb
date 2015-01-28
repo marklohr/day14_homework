@@ -5,8 +5,11 @@ class PatientsController < ApplicationController
   end
   
   def show
+    set_patient
     @doctor = Doctor.find params[:doctor_id]
     @patient = Patient.find params[:id]
+    @nurse = Nurse.new
+    @nurses = @patient.nurses
   end
 
   def new
@@ -42,6 +45,19 @@ class PatientsController < ApplicationController
     end
   end
 
+def create_nurse
+    @doctor = Doctor.find params[:doctor_id]
+    @patient = @doctor.patients.find params[:id] 
+    @nurse = @patient.nurses.create nurse_params
+    redirect_to doctor_patient_path(@doctor, @patient)
+  end
+
+  def destroy_nurse
+    @nurse = Nurse.find params[:nurse_id]
+    @nurse.destroy
+    redirect_to root_path
+  end
+
 private
   def patient_params
     params.require(:patient).permit(
@@ -58,4 +74,13 @@ private
     @doctor = Doctor.find params[:id]
   end
 
+  def set_patient
+    @patient = Patient.find params[:id]
+  end
+
+  def nurse_params
+    params.require(:nurse).permit(
+        :name
+      )
+  end
 end

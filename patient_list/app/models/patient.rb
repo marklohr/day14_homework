@@ -2,7 +2,7 @@ class Patient < ActiveRecord::Base
 
 belongs_to :doctor
 has_many :medications, dependent: :destroy
-
+has_many :nurses, as: :nurseable
 
 
     BLOOD_TYPE_OPTIONS = [

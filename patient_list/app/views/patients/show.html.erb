@@ -1,8 +1,8 @@
 <h1>Information for:</h1>
 <br>
 
-    <%= link_to @patient.last_name + ", " + @patient.first_name, doctor_patient_path(@doctor, @patient) %>
-    <br>
+    <h2><%= @patient.last_name + ", " + @patient.first_name %></h2>
+
     <strong>DOB:</strong>
     <%= @patient.date_of_birth %>
     <br>
@@ -25,7 +25,7 @@
 <%= link_to "Return to Main", root_path %>
 <br>
 <br>
-<strong>Patient Medications:</strong>
+<h3><u>Patient's Medications:</u></h3>
 <%= link_to "Add Medication", new_doctor_patient_medication_path(@doctor, @patient) %>
 <br>
 <ul>
@@ -45,3 +45,25 @@
     <br>
     </li>
   <% end %>
+</ul>
+
+  <h3><u>Patient's Preferred Nurses:</u></h3>
+<ul>
+  <% @nurses.each do |nurse| %>
+    <li>
+ <%= nurse.name %>
+  |
+      <%= link_to "Delete", destroy_nurse_doctor_patient_path(@doctor, @patient, nurse_id: nurse.id), method: :delete %>
+      <br><br>
+    </li>
+  <% end %>
+</ul><br>
+<%= form_for @nurse, url: create_nurse_doctor_patient_path(@doctor, @patient) do |f| %>
+
+<strong><%= f.label :name %></strong>
+  <%= f.text_field :name %>
+  <br><br>
+
+  <%= f.submit %>
+  <br><br>
+<% end %>
