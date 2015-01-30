@@ -5,44 +5,36 @@ class MedicationsController < ApplicationController
   end
   
   def show
-    @doctor = Doctor.find params[:doctor_id]
-    @patient = Patient.find params[:patient_id]
     @medication = Medication.find params[:id]
+    @patients = @medication.patients
   end
 
   def new
-    @doctor = Doctor.find params[:doctor_id]
-    @patient = Patient.find params[:patient_id]
-    @medication = @patient.medications.new
+    @patients = Patient.all
+    @medication = Medication.new
   end
 
   def create
-    @doctor = Doctor.find params[:doctor_id]
-    @patient = @doctor.patients.find params[:patient_id]
-    @medication = @patient.medications.create medication_params
-    redirect_to doctor_patient_path(@doctor, @patient)
+    @medication = Medication.create medication_params
+    redirect_to root_path
   end
 
   def edit
-    @doctor = Doctor.find params[:doctor_id]
-    @patient = @doctor.patients.find params[:patient_id]
-    @medication = @patient.medications.find params[:id]
+    @medication = Medication.find params[:id]
+    @patients = Patient.all
+
   end
 
   def update
-    @doctor = Doctor.find params[:doctor_id]
-    @patient = @doctor.patients.find params[:patient_id]
-    @medication = @patient.medications.find params[:id]
+    @medication = Medication.find params[:id]
     @medication.update medication_params
-    redirect_to doctor_patient_path(@doctor, @patient)
+    redirect_to root_path
   end
 
   def destroy
     @medication = Medication.find params[:id]
-    @doctor = Doctor.find params[:doctor_id]
-    @patient = Patient.find params[:patient_id]
     @medication.delete
-    redirect_to doctor_patient_path(@doctor, @patient)
+    redirect_to root_path
   end
 
 
@@ -51,6 +43,7 @@ private
     params.require(:medication).permit(
         :name,
         :side_effects,
+        patient_ids: []
       ) 
   end
 

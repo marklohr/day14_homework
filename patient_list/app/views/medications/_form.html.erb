@@ -1,4 +1,4 @@
-<%= form_for [@doctor, @patient, @medication] do |f| %>
+<%= form_for [@medication] do |f| %>
   
   <%= f.label :name %><br>
   <%= f.text_field :name %>
@@ -7,11 +7,15 @@
   <%= f.label :side_effects %><br>
   <%= f.text_area :side_effects %>
   <br><br>
-  
+  <% @patients.each do |patient| %>
+    <%= check_box_tag 'medication[patient_ids][]', patient.id, @medication.patients.include?(patient) %>
+    <%= patient.last_name %>
+    <br>
+    <% end %>
   <%= f.submit %>
 <% end %>
 <br><br>
 
-<%= link_to "Cancel", doctor_patient_path(@doctor, @patient) %>
+<%= link_to "Cancel", doctor_patient_medication_path(@doctor, @patient) %>
 |
 <%= link_to "Return to Main", root_path %>

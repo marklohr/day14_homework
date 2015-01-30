@@ -30,6 +30,15 @@
   <strong><%= f.label :blood_type %></strong>
   <%= f.select :blood_type, options_for_select(Patient::BLOOD_TYPE_OPTIONS, f.object.blood_type), include_blank: "---Select---" %>
   <br><br>
+<h3>Prescribed Medications:</h3>
+  <% @medications.each do |medication| %>
+  <%= check_box_tag 'patient[medication_ids][]', medication.id, @patient.medications.include?(medication) %>
+  <%= medication.name %>
+  <br>
+  <% end %>
+
+  <br><br>
+
   <%= f.submit %>
   <br><br>
 

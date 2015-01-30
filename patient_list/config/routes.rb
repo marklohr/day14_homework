@@ -11,10 +11,9 @@ Rails.application.routes.draw do
           post :create_nurse
           delete :destroy_nurse
         end
-        resources :medications
+      end
     end
-  end
-
+    resources :medications
 
     
 

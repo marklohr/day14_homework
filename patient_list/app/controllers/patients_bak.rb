@@ -8,7 +8,6 @@ class PatientsController < ApplicationController
     set_patient
     @doctor = Doctor.find params[:doctor_id]
     @patient = Patient.find params[:id]
-    @medications = @patient.medications
     @nurse = Nurse.new
     @nurses = @patient.nurses
   end
@@ -16,22 +15,17 @@ class PatientsController < ApplicationController
   def new
     @doctor = Doctor.find params[:doctor_id]
     @patient = @doctor.patients.new
-    @medications = Medication.all
-
   end
 
   def create
     @doctor = Doctor.find params[:doctor_id]
     @patient = @doctor.patients.create patient_params
-    @medications = Medication.all
     redirect_to doctor_path(@doctor)
   end
 
   def edit
     @doctor = Doctor.find params[:doctor_id]
     @patient = @doctor.patients.find params[:id]
-    @medications = Medication.all
-
   end
 
   def update
@@ -72,8 +66,7 @@ private
         :date_of_birth,
         :description,
         :gender,
-        :blood_type,
-        medication_ids: []
+        :blood_type
       ) 
   end
 
