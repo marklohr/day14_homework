@@ -26,21 +26,21 @@
 <br>
 <br>
 <h3><u>Patient's Medications:</u></h3>
-<%= link_to "Add Medication", new_doctor_patient_medication_path(@doctor, @patient) %>
+<%= link_to "Add Medication", new_medication_path(@doctor, @patient) %>
 <br>
 <ul>
   <% @patient.medications.each do |medication| %>
     <li>
       <strong>Medication Name:</strong>
-      <%= link_to medication.name, doctor_patient_medication_path(@doctor, @patient, medication) %>
+      <%= link_to medication.name, medication_path(@doctor, @patient, medication) %>
       <br>
       <strong>Side Effects:</strong>
       <%= medication.side_effects %>
       <br>
       
-     <%= link_to "Edit Medication", edit_doctor_patient_medication_path(@doctor, @patient, medication) %>
+     <%= link_to "Edit Medication", edit_medication_path(@doctor, @patient, medication) %>
      |
-    <%= link_to "Delete Medication", doctor_patient_medication_path(@doctor, @patient, medication), method: :delete %>
+    <%= link_to "Delete Medication", medication_path(@doctor, @patient, medication), method: :delete %>
     <br>
     <br>
     </li>
